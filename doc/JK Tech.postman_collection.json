@@ -1,0 +1,1322 @@
+{
+	"info": {
+		"_postman_id": "e18be764-4a68-4772-99cb-dc5a830bc2fd",
+		"name": "JK Tech",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "17598927"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Update Role",
+					"item": [
+						{
+							"name": "Update Role - Success",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTI1NzU5LCJleHAiOjE3NDk5MjkzNTl9.BytcY2wKKNBjnsvYwTFclei4W-qYmlizu6cSS60tbBQ"
+									},
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"editor\",\n    \"role\": \"EDITOR\" \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/admin/role"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Role - Fail (user not found)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTIzMzE1LCJleHAiOjE3NDk5MjY5MTV9.IiHd1bKiGdwS9mAISok1kg0ssL3Ijx7cpKQZaCEQrk4"
+									},
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"editor1\",\n    \"role\": \"EDITOR\" \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/admin/role"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Role - Fail (invalid user role and username)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTIzMzE1LCJleHAiOjE3NDk5MjY5MTV9.IiHd1bKiGdwS9mAISok1kg0ssL3Ijx7cpKQZaCEQrk4"
+									},
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"   \",\n    \"role\": \"EDITOR1\" \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/admin/role"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete User",
+					"item": [
+						{
+							"name": "Delete user - Success",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTIzMzE1LCJleHAiOjE3NDk5MjY5MTV9.IiHd1bKiGdwS9mAISok1kg0ssL3Ijx7cpKQZaCEQrk4"
+									},
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									}
+								],
+								"url": "http://localhost:8080/admin/delete/19"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user - Fail (user not found)",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTI1NzU5LCJleHAiOjE3NDk5MjkzNTl9.BytcY2wKKNBjnsvYwTFclei4W-qYmlizu6cSS60tbBQ"
+									},
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									}
+								],
+								"url": "http://localhost:8080/admin/delete/20"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user - Fail (Invalid user Id)",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTI1NzU5LCJleHAiOjE3NDk5MjkzNTl9.BytcY2wKKNBjnsvYwTFclei4W-qYmlizu6cSS60tbBQ"
+									},
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									}
+								],
+								"url": "http://localhost:8080/admin/delete/abc"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get User",
+					"item": [
+						{
+							"name": "Get user by ID - Success",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTI1NzU5LCJleHAiOjE3NDk5MjkzNTl9.BytcY2wKKNBjnsvYwTFclei4W-qYmlizu6cSS60tbBQ"
+									},
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									}
+								],
+								"url": "http://localhost:8080/admin/user/15"
+							},
+							"response": []
+						},
+						{
+							"name": "Get user by ID - Fail (user not found)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTI1NzU5LCJleHAiOjE3NDk5MjkzNTl9.BytcY2wKKNBjnsvYwTFclei4W-qYmlizu6cSS60tbBQ"
+									},
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									}
+								],
+								"url": "http://localhost:8080/admin/user/18"
+							},
+							"response": []
+						},
+						{
+							"name": "Get user by ID - Fail (Incorrect Id)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMxNTE5LCJleHAiOjE3NDk5MzUxMTl9.M3lyaeya2MEsnW8FQGs4juoe29BoFAnv5V9TG-AtJ2Y"
+									},
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									}
+								],
+								"url": "http://localhost:8080/admin/user/abc"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get all users - Success",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMxNTE5LCJleHAiOjE3NDk5MzUxMTl9.M3lyaeya2MEsnW8FQGs4juoe29BoFAnv5V9TG-AtJ2Y"
+							},
+							{
+								"key": "Cookie",
+								"value": "JSESSIONID=22834212F6730416499E00304000260F"
+							}
+						],
+						"url": "http://localhost:8080/admin/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Redis Cache Stats",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "JSESSIONID=22834212F6730416499E00304000260F"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMxNTE5LCJleHAiOjE3NDk5MzUxMTl9.M3lyaeya2MEsnW8FQGs4juoe29BoFAnv5V9TG-AtJ2Y",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8080/admin/CacheStats"
+					},
+					"response": []
+				},
+				{
+					"name": "Clear Redis Cache",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "JSESSIONID=22834212F6730416499E00304000260F"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTM1NjcyLCJleHAiOjE3NDk5MzkyNzJ9.GtRedgvn27RnRz8R_jdZY93MEQBE0Rd-ttDZ41uen7o",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8080/admin/clearCache"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "Login - Success",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/login"
+							},
+							"response": []
+						},
+						{
+							"name": "Login - Fail (incorrect username)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"admin1\",\n    \"password\": \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/login"
+							},
+							"response": []
+						},
+						{
+							"name": "Login - Fail (invalid username and password)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"  \",\n    \"password\": \"ad\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/login"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Registration",
+					"item": [
+						{
+							"name": "Registration - Sucess",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"editor1\",\n    \"password\": \"editor1\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/registration"
+							},
+							"response": []
+						},
+						{
+							"name": "Registration - Fail (username exist)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"editor1\",\n    \"password\": \"editor1\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/registration"
+							},
+							"response": []
+						},
+						{
+							"name": "Registration - Fail (invalid username and password)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"ed\",\n    \"password\": \"   \"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/registration"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "File",
+			"item": [
+				{
+					"name": "Upload File",
+					"item": [
+						{
+							"name": "Upload File - Success",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTM1NjcyLCJleHAiOjE3NDk5MzkyNzJ9.GtRedgvn27RnRz8R_jdZY93MEQBE0Rd-ttDZ41uen7o",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "description",
+											"value": "This is a doc 2",
+											"type": "text"
+										},
+										{
+											"key": "title",
+											"value": "Tdfasfa",
+											"type": "text"
+										},
+										{
+											"key": "keyword",
+											"value": "Asadfsdf",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/Users/aman.sharma@mheducation.com/Downloads/test.doc"
+										}
+									]
+								},
+								"url": "http://localhost:8080/file/upload"
+							},
+							"response": []
+						},
+						{
+							"name": "Upload File - Fail (invalid title and keywords)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTM1NjcyLCJleHAiOjE3NDk5MzkyNzJ9.GtRedgvn27RnRz8R_jdZY93MEQBE0Rd-ttDZ41uen7o",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "description",
+											"value": "Th",
+											"type": "text"
+										},
+										{
+											"key": "title",
+											"value": "Td",
+											"type": "text"
+										},
+										{
+											"key": "keyword",
+											"value": "          ",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/Users/aman.sharma@mheducation.com/Downloads/test.doc"
+										}
+									]
+								},
+								"url": "http://localhost:8080/file/upload"
+							},
+							"response": []
+						},
+						{
+							"name": "Upload File - Fail (no file provided)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTM1NjcyLCJleHAiOjE3NDk5MzkyNzJ9.GtRedgvn27RnRz8R_jdZY93MEQBE0Rd-ttDZ41uen7o",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "description",
+											"value": "Th",
+											"type": "text"
+										},
+										{
+											"key": "title",
+											"value": "Tdasda",
+											"type": "text"
+										},
+										{
+											"key": "keyword",
+											"value": "asdsad",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/Users/aman.sharma@mheducation.com/Downloads/test.doc",
+											"disabled": true
+										}
+									]
+								},
+								"url": "http://localhost:8080/file/upload"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update File",
+					"item": [
+						{
+							"name": "Update File - Success",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTM1NjcyLCJleHAiOjE3NDk5MzkyNzJ9.GtRedgvn27RnRz8R_jdZY93MEQBE0Rd-ttDZ41uen7o",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "description",
+											"value": "This is a pdf file",
+											"type": "text"
+										},
+										{
+											"key": "title",
+											"value": "Aman CV",
+											"type": "text"
+										},
+										{
+											"key": "keyword",
+											"value": "Aamn latest cv",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/Users/aman.sharma@mheducation.com/Downloads/Aman_CV___Latest.pdf"
+										}
+									]
+								},
+								"url": "http://localhost:8080/file/update/9"
+							},
+							"response": []
+						},
+						{
+							"name": "Update File - Fail (invalid file id)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTM1NjcyLCJleHAiOjE3NDk5MzkyNzJ9.GtRedgvn27RnRz8R_jdZY93MEQBE0Rd-ttDZ41uen7o",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "description",
+											"value": "This is a pdf file",
+											"type": "text"
+										},
+										{
+											"key": "title",
+											"value": "Aman CV",
+											"type": "text"
+										},
+										{
+											"key": "keyword",
+											"value": "Aamn latest cv",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/Users/aman.sharma@mheducation.com/Downloads/Aman_CV___Latest.pdf"
+										}
+									]
+								},
+								"url": "http://localhost:8080/file/update/abc"
+							},
+							"response": []
+						},
+						{
+							"name": "Update File - Fail (invalid keyword and title)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTM1NjcyLCJleHAiOjE3NDk5MzkyNzJ9.GtRedgvn27RnRz8R_jdZY93MEQBE0Rd-ttDZ41uen7o",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "description",
+											"value": "This is a pdf file",
+											"type": "text"
+										},
+										{
+											"key": "title",
+											"value": "Am",
+											"type": "text"
+										},
+										{
+											"key": "keyword",
+											"value": "       ",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/Users/aman.sharma@mheducation.com/Downloads/Aman_CV___Latest.pdf"
+										}
+									]
+								},
+								"url": "http://localhost:8080/file/update/9"
+							},
+							"response": []
+						},
+						{
+							"name": "Update File - Fail (no file provided)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTM1NjcyLCJleHAiOjE3NDk5MzkyNzJ9.GtRedgvn27RnRz8R_jdZY93MEQBE0Rd-ttDZ41uen7o",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "description",
+											"value": "This is a pdf file",
+											"type": "text"
+										},
+										{
+											"key": "title",
+											"value": "Aman CV",
+											"type": "text"
+										},
+										{
+											"key": "keyword",
+											"value": "Aman CV latest",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/Users/aman.sharma@mheducation.com/Downloads/Aman_CV___Latest.pdf",
+											"disabled": true
+										}
+									]
+								},
+								"url": "http://localhost:8080/file/update/9"
+							},
+							"response": []
+						},
+						{
+							"name": "Update File - Fail (no file found)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTM1NjcyLCJleHAiOjE3NDk5MzkyNzJ9.GtRedgvn27RnRz8R_jdZY93MEQBE0Rd-ttDZ41uen7o",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "description",
+											"value": "This is a pdf file",
+											"type": "text"
+										},
+										{
+											"key": "title",
+											"value": "Aman CV",
+											"type": "text"
+										},
+										{
+											"key": "keyword",
+											"value": "Aman CV latest",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/Users/aman.sharma@mheducation.com/Downloads/Aman_CV___Latest.pdf"
+										}
+									]
+								},
+								"url": "http://localhost:8080/file/update/10"
+							},
+							"response": []
+						},
+						{
+							"name": "Update File - Fail (only editor can update)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTM1NjcyLCJleHAiOjE3NDk5MzkyNzJ9.GtRedgvn27RnRz8R_jdZY93MEQBE0Rd-ttDZ41uen7o",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "description",
+											"value": "This is a pdf file",
+											"type": "text"
+										},
+										{
+											"key": "title",
+											"value": "Aman CV",
+											"type": "text"
+										},
+										{
+											"key": "keyword",
+											"value": "Aman CV latest",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/Users/aman.sharma@mheducation.com/Downloads/Aman_CV___Latest.pdf"
+										}
+									]
+								},
+								"url": "http://localhost:8080/file/update/1"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete File",
+					"item": [
+						{
+							"name": "Delete File - Success",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTM1NjcyLCJleHAiOjE3NDk5MzkyNzJ9.GtRedgvn27RnRz8R_jdZY93MEQBE0Rd-ttDZ41uen7o",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:8080/file/delete/9"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete File - Fail (invalid file id)",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTM1NjcyLCJleHAiOjE3NDk5MzkyNzJ9.GtRedgvn27RnRz8R_jdZY93MEQBE0Rd-ttDZ41uen7o",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:8080/file/delete/abc"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete File - Fail (incorrect file id)",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTM1NjcyLCJleHAiOjE3NDk5MzkyNzJ9.GtRedgvn27RnRz8R_jdZY93MEQBE0Rd-ttDZ41uen7o",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:8080/file/delete/10"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete File - Fail (only editor can delete)",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTM1NjcyLCJleHAiOjE3NDk5MzkyNzJ9.GtRedgvn27RnRz8R_jdZY93MEQBE0Rd-ttDZ41uen7o",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:8080/file/delete/1"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "QA",
+			"item": [
+				{
+					"name": "Ask Question - Success",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMzNzIyLCJleHAiOjE3NDk5MzczMjJ9.qQJbgDGfDnPYrdnBLH5xgscl_lawFLwgKmIYUh940NM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "Aman",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": "http://localhost:8080/qa/ask"
+					},
+					"response": []
+				},
+				{
+					"name": "Ask Question - Fail (Incorrect question)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMzNzIyLCJleHAiOjE3NDk5MzczMjJ9.qQJbgDGfDnPYrdnBLH5xgscl_lawFLwgKmIYUh940NM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "Am",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": "http://localhost:8080/qa/ask"
+					},
+					"response": []
+				},
+				{
+					"name": "Ask Question - Fail (Invalid question)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMzNzIyLCJleHAiOjE3NDk5MzczMjJ9.qQJbgDGfDnPYrdnBLH5xgscl_lawFLwgKmIYUh940NM",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8080/qa/ask"
+					},
+					"response": []
+				},
+				{
+					"name": "Ask Question - Fail (no answer found)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMzNzIyLCJleHAiOjE3NDk5MzczMjJ9.qQJbgDGfDnPYrdnBLH5xgscl_lawFLwgKmIYUh940NM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "abcd",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": "http://localhost:8080/qa/ask"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FileViewer",
+			"item": [
+				{
+					"name": "Get File by FileId",
+					"item": [
+						{
+							"name": "Get File by Id - Success",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMxNTE5LCJleHAiOjE3NDk5MzUxMTl9.M3lyaeya2MEsnW8FQGs4juoe29BoFAnv5V9TG-AtJ2Y",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:8080/fileviewer/3"
+							},
+							"response": []
+						},
+						{
+							"name": "Get File by Id - Fail (invalid file id)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMxNTE5LCJleHAiOjE3NDk5MzUxMTl9.M3lyaeya2MEsnW8FQGs4juoe29BoFAnv5V9TG-AtJ2Y",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:8080/fileviewer/abc"
+							},
+							"response": []
+						},
+						{
+							"name": "Get File by Id - Fail (incorrect file id) Copy",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMxNTE5LCJleHAiOjE3NDk5MzUxMTl9.M3lyaeya2MEsnW8FQGs4juoe29BoFAnv5V9TG-AtJ2Y",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:8080/fileviewer/10"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get File Metadata by File Id",
+					"item": [
+						{
+							"name": "Get File metadata by Id - Success",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMxNTE5LCJleHAiOjE3NDk5MzUxMTl9.M3lyaeya2MEsnW8FQGs4juoe29BoFAnv5V9TG-AtJ2Y",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:8080/fileviewer/meta/1"
+							},
+							"response": []
+						},
+						{
+							"name": "Get File metadata by Id - Fail (invalid file id)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMxNTE5LCJleHAiOjE3NDk5MzUxMTl9.M3lyaeya2MEsnW8FQGs4juoe29BoFAnv5V9TG-AtJ2Y",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:8080/fileviewer/meta/abc"
+							},
+							"response": []
+						},
+						{
+							"name": "Get File metadata by Id - Fail (incorrect file id)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMxNTE5LCJleHAiOjE3NDk5MzUxMTl9.M3lyaeya2MEsnW8FQGs4juoe29BoFAnv5V9TG-AtJ2Y",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:8080/fileviewer/meta/100"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get File Metadata by Editor Id",
+					"item": [
+						{
+							"name": "Get File metadata by Editor Id - Success",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMyMjAzLCJleHAiOjE3NDk5MzU4MDN9.NvVIDI6lxM8Ik528WhwZxzPCemnR5r7HXYSfp2fb2z0",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:8080/fileviewer/editor/1"
+							},
+							"response": []
+						},
+						{
+							"name": "Get File metadata by Editor Id - Fail (invalid editor id)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMyMjAzLCJleHAiOjE3NDk5MzU4MDN9.NvVIDI6lxM8Ik528WhwZxzPCemnR5r7HXYSfp2fb2z0",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:8080/fileviewer/editor/abc"
+							},
+							"response": []
+						},
+						{
+							"name": "Get File metadata by Editor Id - Fail (incorrect editor id)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMyMjAzLCJleHAiOjE3NDk5MzU4MDN9.NvVIDI6lxM8Ik528WhwZxzPCemnR5r7HXYSfp2fb2z0",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:8080/fileviewer/editor/13"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get File Metadata by keyword",
+					"item": [
+						{
+							"name": "Get File metadata using keyword - Success",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMyMjAzLCJleHAiOjE3NDk5MzU4MDN9.NvVIDI6lxM8Ik528WhwZxzPCemnR5r7HXYSfp2fb2z0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "Aman",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": "http://localhost:8080/fileviewer/keyword"
+							},
+							"response": []
+						},
+						{
+							"name": "Get File metadata using keyword - Fail (invalid keyword)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMyMjAzLCJleHAiOjE3NDk5MzU4MDN9.NvVIDI6lxM8Ik528WhwZxzPCemnR5r7HXYSfp2fb2z0",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:8080/fileviewer/keyword"
+							},
+							"response": []
+						},
+						{
+							"name": "Get File metadata using keyword - Fail (incorrect keyword)",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMyMjAzLCJleHAiOjE3NDk5MzU4MDN9.NvVIDI6lxM8Ik528WhwZxzPCemnR5r7HXYSfp2fb2z0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "Aman1",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": "http://localhost:8080/fileviewer/keyword"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get File Metadata by FileType",
+					"item": [
+						{
+							"name": "Get File metadata by file type - Success",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMzNDY2LCJleHAiOjE3NDk5MzcwNjZ9.BZ3pCQ4H8-EvAcFQoCIcojFlR0XQnc4iBWplFeJFbXI",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "pdf",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": "http://localhost:8080/fileviewer/fileType"
+							},
+							"response": []
+						},
+						{
+							"name": "Get File metadata by file type - Fail (incorrect file type)",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMzNDY2LCJleHAiOjE3NDk5MzcwNjZ9.BZ3pCQ4H8-EvAcFQoCIcojFlR0XQnc4iBWplFeJFbXI",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "pdf1",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": "http://localhost:8080/fileviewer/fileType"
+							},
+							"response": []
+						},
+						{
+							"name": "Get File metadata by file type - Fail (invalid file type)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=22834212F6730416499E00304000260F"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzQ5OTMzNDY2LCJleHAiOjE3NDk5MzcwNjZ9.BZ3pCQ4H8-EvAcFQoCIcojFlR0XQnc4iBWplFeJFbXI",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:8080/fileviewer/fileType"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
