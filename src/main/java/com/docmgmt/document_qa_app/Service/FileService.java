@@ -6,19 +6,19 @@ import com.docmgmt.document_qa_app.Model.DTO.FileMetadataDTO;
 import com.docmgmt.document_qa_app.Model.FileEntity;
 import com.docmgmt.document_qa_app.Model.PagedResponse;
 import org.apache.tika.exception.TikaException;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.IOException;
 
 public interface FileService {
 
-    String uploadFile(FileDTO fileDTO) throws IOException, TikaException;
+    String uploadFile(FileDTO fileDTO, UserDetails userDetails) throws IOException, TikaException;
 
-    String updateFile(FileDTO fileDTO, Long id) throws IOException;
+    String updateFile(FileDTO fileDTO, Long id, UserDetails userDetails) throws IOException;
 
-    String deleteFile(Long id) throws IOException;
+    String deleteFile(Long id, UserDetails userDetails) throws IOException;
 
     FileEntity findById(Long id) throws RuntimeException;
 

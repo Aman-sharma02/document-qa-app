@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
@@ -28,15 +27,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -68,6 +65,7 @@ class FileServiceTest {
     private FileEntity testFileEntity;
     private FileDTO testFileDTO;
     private MockMultipartFile mockFile;
+    UserDetails userDetails;
 
     @BeforeEach
     void setUp() {
@@ -77,6 +75,22 @@ class FileServiceTest {
         testUser.setId(1L);
         testUser.setUsername("testuser");
 
+        userDetails = new UserDetails() {
+            @Override
+            public Collection<? extends GrantedAuthority> getAuthorities() {
+                return List.of();
+            }
+
+            @Override
+            public String getPassword() {
+                return "";
+            }
+
+            @Override
+            public String getUsername() {
+                return "testuser";
+            }
+        };
         // Setup test file entity
         testFileEntity = new FileEntity();
         testFileEntity.setId(1L);
@@ -104,75 +118,59 @@ class FileServiceTest {
         testFileDTO.setDescription("Test file");
         testFileDTO.setKeyword("test");
         testFileDTO.setTitle("Test Title");
-
-        // Setup security context
-        when(securityContext.getAuthentication()).thenReturn(authentication);
-        when(authentication.getName()).thenReturn("testuser");
     }
 
     @Test
     void uploadFile_Success() throws IOException, TikaException {
         // Arrange
-        try (MockedStatic<SecurityContextHolder> mockedSecurityContext = mockStatic(SecurityContextHolder.class)) {
-            mockedSecurityContext.when(SecurityContextHolder::getContext).thenReturn(securityContext);
-            when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
-            when(fileRepository.save(any(FileEntity.class))).thenReturn(testFileEntity);
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
+        when(fileRepository.save(any(FileEntity.class))).thenReturn(testFileEntity);
 
-            // Act
-            String result = fileService.uploadFile(testFileDTO);
+        // Act
+        String result = fileService.uploadFile(testFileDTO, userDetails);
 
-            // Assert
-            assertEquals("File uploaded successfully: test.txt", result);
-            verify(fileRepository, times(1)).save(any(FileEntity.class));
-            verify(userRepository, times(1)).findByUsername("testuser");
-        }
+        // Assert
+        assertEquals("File uploaded successfully: test.txt", result);
+        verify(fileRepository, times(1)).save(any(FileEntity.class));
+        verify(userRepository, times(1)).findByUsername("testuser");
     }
 
     @Test
     void uploadFile_UserNotFound() {
         // Arrange
-        try (MockedStatic<SecurityContextHolder> mockedSecurityContext = mockStatic(SecurityContextHolder.class)) {
-            mockedSecurityContext.when(SecurityContextHolder::getContext).thenReturn(securityContext);
-            when(userRepository.findByUsername("testuser")).thenReturn(Optional.empty());
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.empty());
 
-            // Act & Assert
-            ResponseStatusException exception = assertThrows(ResponseStatusException.class,
-                    () -> fileService.uploadFile(testFileDTO));
-            assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
-            assertTrue(exception.getReason().contains("User: testuser not found"));
-        }
+        // Act & Assert
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> fileService.uploadFile(testFileDTO, userDetails));
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+        assertTrue(exception.getReason().contains("User: testuser not found"));
     }
 
     @Test
     void updateFile_Success() throws IOException {
         // Arrange
-        try (MockedStatic<SecurityContextHolder> mockedSecurityContext = mockStatic(SecurityContextHolder.class)) {
-            mockedSecurityContext.when(SecurityContextHolder::getContext).thenReturn(securityContext);
-            when(fileRepository.findById(1L)).thenReturn(Optional.of(testFileEntity));
-            when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
-            when(fileRepository.save(any(FileEntity.class))).thenReturn(testFileEntity);
+        when(fileRepository.findById(1L)).thenReturn(Optional.of(testFileEntity));
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
+        when(fileRepository.save(any(FileEntity.class))).thenReturn(testFileEntity);
 
-            // Act
-            String result = fileService.updateFile(testFileDTO, 1L);
+        // Act
+        String result = fileService.updateFile(testFileDTO, 1L, userDetails);
 
-            // Assert
-            assertEquals("File updated successfully: test.txt", result);
-            verify(fileRepository, times(1)).save(any(FileEntity.class));
-        }
+        // Assert
+        assertEquals("File updated successfully: test.txt", result);
+        verify(fileRepository, times(1)).save(any(FileEntity.class));
     }
 
     @Test
     void updateFile_FileNotFound() {
         // Arrange
-        try (MockedStatic<SecurityContextHolder> mockedSecurityContext = mockStatic(SecurityContextHolder.class)) {
-            mockedSecurityContext.when(SecurityContextHolder::getContext).thenReturn(securityContext);
-            when(fileRepository.findById(1L)).thenReturn(Optional.empty());
+        when(fileRepository.findById(1L)).thenReturn(Optional.empty());
 
-            // Act & Assert
-            ResponseStatusException exception = assertThrows(ResponseStatusException.class,
-                    () -> fileService.updateFile(testFileDTO, 1L));
-            assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
-        }
+        // Act & Assert
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> fileService.updateFile(testFileDTO, 1L, userDetails));
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
 
     @Test
@@ -182,34 +180,28 @@ class FileServiceTest {
         differentUser.setId(2L);
         differentUser.setUsername("differentuser");
 
-        try (MockedStatic<SecurityContextHolder> mockedSecurityContext = mockStatic(SecurityContextHolder.class)) {
-            mockedSecurityContext.when(SecurityContextHolder::getContext).thenReturn(securityContext);
-            when(fileRepository.findById(1L)).thenReturn(Optional.of(testFileEntity));
-            when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(differentUser));
+        when(fileRepository.findById(1L)).thenReturn(Optional.of(testFileEntity));
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(differentUser));
 
-            // Act & Assert
-            ResponseStatusException exception = assertThrows(ResponseStatusException.class,
-                    () -> fileService.updateFile(testFileDTO, 1L));
-            assertEquals(HttpStatus.FORBIDDEN, exception.getStatusCode());
-            assertTrue(exception.getReason().contains("Only Editors can update file"));
-        }
+        // Act & Assert
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> fileService.updateFile(testFileDTO, 1L, userDetails));
+        assertEquals(HttpStatus.FORBIDDEN, exception.getStatusCode());
+        assertTrue(exception.getReason().contains("Only Editors can update file"));
     }
 
     @Test
     void deleteFile_Success() {
         // Arrange
-        try (MockedStatic<SecurityContextHolder> mockedSecurityContext = mockStatic(SecurityContextHolder.class)) {
-            mockedSecurityContext.when(SecurityContextHolder::getContext).thenReturn(securityContext);
-            when(fileRepository.findById(1L)).thenReturn(Optional.of(testFileEntity));
-            when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
+        when(fileRepository.findById(1L)).thenReturn(Optional.of(testFileEntity));
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
 
-            // Act
-            String result = fileService.deleteFile(1L);
+        // Act
+        String result = fileService.deleteFile(1L, userDetails);
 
-            // Assert
-            assertEquals("File Deleted Successfully", result);
-            verify(fileRepository, times(1)).delete(testFileEntity);
-        }
+        // Assert
+        assertEquals("File Deleted Successfully", result);
+        verify(fileRepository, times(1)).delete(testFileEntity);
     }
 
     @Test
@@ -219,16 +211,13 @@ class FileServiceTest {
         differentUser.setId(2L);
         differentUser.setUsername("differentuser");
 
-        try (MockedStatic<SecurityContextHolder> mockedSecurityContext = mockStatic(SecurityContextHolder.class)) {
-            mockedSecurityContext.when(SecurityContextHolder::getContext).thenReturn(securityContext);
-            when(fileRepository.findById(1L)).thenReturn(Optional.of(testFileEntity));
-            when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(differentUser));
+        when(fileRepository.findById(1L)).thenReturn(Optional.of(testFileEntity));
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(differentUser));
 
-            // Act & Assert
-            ResponseStatusException exception = assertThrows(ResponseStatusException.class,
-                    () -> fileService.deleteFile(1L));
-            assertEquals(HttpStatus.FORBIDDEN, exception.getStatusCode());
-        }
+        // Act & Assert
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> fileService.deleteFile(1L, userDetails));
+        assertEquals(HttpStatus.FORBIDDEN, exception.getStatusCode());
     }
 
     @Test

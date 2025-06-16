@@ -145,6 +145,35 @@ mvn test
 
 A sample Postman collection is available in the `docs/` folder for testing the APIs.
 
+## 📷 Screenshots
+
+### - Login API (Authenticates a user and Returns a JWT token)
+- 🟢 Success
+  ![Upload File API](docs/screenshots/login-endpoint.png)
+
+### - Upload File API (Uploads a new file and stores in DB)
+- 🟢 Success
+  ![Upload File API](docs/screenshots/upload-file-endpoint.png)
+
+### - Update Role API (Updates the role of a specific user identified by username)
+- 🟢 Success
+  ![Upload File API](docs/screenshots/update-role-endpoint.png)
+
+- 🔴 Getting **403** as we are updating roles with VIEWER role. Required ADMIN user role
+  ![Upload File API](docs/screenshots/403-update-role-endpoint.png)
+
+- 🔴 Getting **401** as we are updateing roles without token. Required jwt token
+  ![Upload File API](docs/screenshots/401-update-role-endpoint.png)
+
+### - Update File API (Updates the specific file identified by id)
+- 🟢 Success
+  ![Upload File API](docs/screenshots/update-file-endpoint.png)
+
+- 🔴 Getting **403** as we are updating roles with VIEWER role. Required ADMIN user role
+  ![Upload File API](docs/screenshots/403-update-file-endpoint(Only editor can update).png)
+
+### * Other screenshots are available in the `docs/screenshots` folder for reference.
+
 --- 
 
 ## 🐳 Dockerizing the Spring Boot Application with PostgreSQL and Redis Server

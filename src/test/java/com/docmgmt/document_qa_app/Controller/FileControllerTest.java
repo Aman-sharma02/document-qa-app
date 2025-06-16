@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.IOException;
 
@@ -25,9 +26,12 @@ class FileControllerTest {
     @InjectMocks
     private FileController fileController;
 
+    UserDetails userDetails;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        userDetails = mock(UserDetails.class);
     }
 
     @Test
@@ -35,13 +39,13 @@ class FileControllerTest {
 
         // Arrange
         FileDTO fileDTO = createFileDTO();
-        when(fileService.uploadFile(any(FileDTO.class))).thenReturn("File uploaded successfully: test.txt");
+        when(fileService.uploadFile(any(FileDTO.class), any(UserDetails.class))).thenReturn("File uploaded successfully: test.txt");
 
         // Act
-        ResponseEntity<String> response = fileController.uploadFile(fileDTO);
+        ResponseEntity<String> response = fileController.uploadFile(fileDTO, userDetails);
 
         // Assert
-        verify(fileService, times(1)).uploadFile(fileDTO);
+        verify(fileService, times(1)).uploadFile(fileDTO, userDetails);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("File uploaded successfully: test.txt", response.getBody());
     }
@@ -52,12 +56,12 @@ class FileControllerTest {
         // Arrange
         FileDTO fileDTO = createFileDTO();
         doThrow(new IOException("Exception occurred"))
-                .when(fileService).uploadFile(fileDTO);
+                .when(fileService).uploadFile(fileDTO, userDetails);
         // Act
-        ResponseEntity<String> response = fileController.uploadFile(fileDTO);
+        ResponseEntity<String> response = fileController.uploadFile(fileDTO, userDetails);
 
         // Assert
-        verify(fileService, times(1)).uploadFile(fileDTO);
+        verify(fileService, times(1)).uploadFile(fileDTO, userDetails);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
         assertEquals("Cannot Upload file: Exception occurred", response.getBody());
     }
@@ -67,13 +71,13 @@ class FileControllerTest {
         // Arrange
         FileDTO fileDTO = createFileDTO();
         Long id =1L;
-        when(fileService.updateFile(fileDTO, id)).thenReturn("File updated successfully: test.txt");
+        when(fileService.updateFile(fileDTO, id, userDetails)).thenReturn("File updated successfully: test.txt");
 
         //Act
-        ResponseEntity<String> response = fileController.updateFile(fileDTO,id);
+        ResponseEntity<String> response = fileController.updateFile(fileDTO,id, userDetails);
 
         // Assert
-        verify(fileService, times(1)).updateFile(fileDTO, id);
+        verify(fileService, times(1)).updateFile(fileDTO, id, userDetails);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("File updated successfully: test.txt", response.getBody());
     }
@@ -83,13 +87,13 @@ class FileControllerTest {
         // Arrange
         FileDTO fileDTO = createFileDTO();
         Long id =1L;
-        when(fileService.updateFile(fileDTO, id)).thenThrow(new IOException("Exception occurred"));
+        when(fileService.updateFile(fileDTO, id, userDetails)).thenThrow(new IOException("Exception occurred"));
 
         //Act
-        ResponseEntity<String> response = fileController.updateFile(fileDTO, id);
+        ResponseEntity<String> response = fileController.updateFile(fileDTO, id, userDetails);
 
         // Assert
-        verify(fileService, times(1)).updateFile(fileDTO, id);
+        verify(fileService, times(1)).updateFile(fileDTO, id, userDetails);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
         assertEquals("Cannot Update file: Exception occurred", response.getBody());
     }
@@ -98,13 +102,13 @@ class FileControllerTest {
     void deleteFileSuccess() throws IOException {
         // Arrange
         Long id =1L;
-        when(fileService.deleteFile(id)).thenReturn("File Deleted Successfully");
+        when(fileService.deleteFile(id, userDetails)).thenReturn("File Deleted Successfully");
 
         // Act
-        ResponseEntity<String> response = fileController.deleteFile(id);
+        ResponseEntity<String> response = fileController.deleteFile(id, userDetails);
 
         // Assert
-        verify(fileService, times(1)).deleteFile(id);
+        verify(fileService, times(1)).deleteFile(id, userDetails);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("File Deleted Successfully", response.getBody());
     }
@@ -113,13 +117,13 @@ class FileControllerTest {
     void deleteFileFail() throws IOException {
         // Arrange
         Long id = 1L;
-        when(fileService.deleteFile(id)).thenThrow(new IOException("Exception occurred"));
+        when(fileService.deleteFile(id, userDetails)).thenThrow(new IOException("Exception occurred"));
 
         // Act
-        ResponseEntity<String> response = fileController.deleteFile(id);
+        ResponseEntity<String> response = fileController.deleteFile(id, userDetails);
 
         // Assert
-        verify(fileService, times(1)).deleteFile(id);
+        verify(fileService, times(1)).deleteFile(id, userDetails);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
         assertEquals("Cannot Delete file: Exception occurred", response.getBody());
     }

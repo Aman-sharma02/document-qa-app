@@ -19,8 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.*;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.server.ResponseStatusException;
@@ -62,9 +61,8 @@ public class FileServiceImpl implements FileService {
             @CacheEvict(value = PAGED_RESPONSE_CACHE, allEntries = true),
             @CacheEvict(value = SEARCH_CACHE, allEntries = true)
     })
-    public String uploadFile(FileDTO file) throws IOException, TikaException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+    public String uploadFile(FileDTO file, UserDetails userDetails) throws IOException, TikaException {
+        String username = userDetails.getUsername();
         Tika tika = new Tika();
         String content = "";
         try (InputStream inputStream = file.getFile().getInputStream()) {
@@ -83,9 +81,8 @@ public class FileServiceImpl implements FileService {
             @CacheEvict(value = PAGED_RESPONSE_CACHE, allEntries = true),
             @CacheEvict(value = SEARCH_CACHE, allEntries = true)
     })
-    public String updateFile(FileDTO newFile, Long id) throws IOException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+    public String updateFile(FileDTO newFile, Long id, UserDetails userDetails) throws IOException {
+        String username = userDetails.getUsername();
         FileEntity oldFile = fileRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "File not found with id: " + id));
         User user = userRepository.findByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User: " + username + " not found"));
         if (Objects.equals(user.getId(), oldFile.getEditorId())) {
@@ -106,9 +103,8 @@ public class FileServiceImpl implements FileService {
             @CacheEvict(value = PAGED_RESPONSE_CACHE, allEntries = true),
             @CacheEvict(value = SEARCH_CACHE, allEntries = true)
     })
-    public String deleteFile(Long id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+    public String deleteFile(Long id, UserDetails userDetails) {
+        String username = userDetails.getUsername();
         FileEntity file = fileRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "File not found with id - " + id));
         User user = userRepository.findByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User " + username + " not found"));
         if(Objects.equals(user.getId(), file.getEditorId())) {

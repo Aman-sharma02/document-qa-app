@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -38,10 +40,10 @@ public class FileController {
             content = @Content(
                     mediaType = MediaType.MULTIPART_FORM_DATA_VALUE,
                     schema = @Schema(implementation = FileDTO.class)
-            ))FileDTO file) {
+            ))FileDTO file, @AuthenticationPrincipal UserDetails userDetails) {
         try {
             if(file.getFile() == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "File Cannot be empty");
-            return new ResponseEntity<>(fileService.uploadFile(file), HttpStatus.OK);
+            return new ResponseEntity<>(fileService.uploadFile(file, userDetails), HttpStatus.OK);
         } catch (ResponseStatusException rs) {
             return new ResponseEntity<>("Cannot Upload file: " + rs.getReason(),rs.getStatusCode());
         } catch (Exception e) {
@@ -61,10 +63,10 @@ public class FileController {
             description = "Unique identifier of the file to update",
             required = true,
             example = "123L"
-    ) Long id) {
+    ) Long id, @AuthenticationPrincipal UserDetails userDetails) {
         try {
             if(file.getFile() == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "File Cannot be empty");
-            return new ResponseEntity<>(fileService.updateFile(file, id), HttpStatus.OK);
+            return new ResponseEntity<>(fileService.updateFile(file, id, userDetails), HttpStatus.OK);
         } catch (ResponseStatusException rs) {
             return new ResponseEntity<>("Cannot Update file: " + rs.getReason(),rs.getStatusCode());
         } catch (Exception e) {
@@ -77,9 +79,9 @@ public class FileController {
     public ResponseEntity<String> deleteFile(@PathVariable @Parameter(
             description = "Unique identifier of the file to delete",
             required = true,
-            example = "123L") Long id) {
+            example = "123L") Long id, @AuthenticationPrincipal UserDetails userDetails) {
         try {
-            return new ResponseEntity<>(fileService.deleteFile(id), HttpStatus.OK);
+            return new ResponseEntity<>(fileService.deleteFile(id, userDetails), HttpStatus.OK);
         } catch (ResponseStatusException rs) {
             return new ResponseEntity<>("Cannot Delete file: " + rs.getReason(),rs.getStatusCode());
         } catch (Exception e) {
